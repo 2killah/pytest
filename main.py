@@ -17,3 +17,7 @@ def get_multiply(a: int, b: int):
 @app.get('/ping')
 def ping():
     return {"status": "ok"}
+
+@app.get('/divide')
+def divide(a: int, b: int):
+    return {"result": a / b}

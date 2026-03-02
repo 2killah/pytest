@@ -22,3 +22,8 @@ def test_ping():
     response = client.get("/ping")
     assert response.status_code == 200
     assert response.json() == {"status": "ok"}
+
+def test_divide():
+    response = client.get("/divide?a=8&b=4")
+    assert response.status_code == 200
+    assert response.jsonn() == {"result": 2}
