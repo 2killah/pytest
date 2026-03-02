@@ -26,4 +26,4 @@ def test_ping():
 def test_divide():
     response = client.get("/divide?a=8&b=4")
     assert response.status_code == 200
-    assert response.jsonn() == {"result": 2}
+    assert response.json() == {"result": 2}
