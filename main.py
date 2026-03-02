@@ -10,3 +10,6 @@ def read_root():
 def get_sum(a: int, b: int):
     return {"result": a + b}
 
+@app.get('/multiply')
+def get_multiply(a: int, b: int):
+    return {"result": a * b}
