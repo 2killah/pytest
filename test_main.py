@@ -19,6 +19,6 @@ def test_multiply():
     assert response.json() == {"result": 16}
 
 def test_ping():
-    response = client.get("/")
+    response = client.get("/ping")
     assert response.status_code == 200
     assert response.json() == {"status": "ok"}
