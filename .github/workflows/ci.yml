@@ -3,7 +3,7 @@ name: FastAPI CI
 on:
   push:
     branches: [ main ]
-  pull_request:
+  pull_request: 
     branches: [ main ]
 
 jobs:
@@ -13,51 +13,37 @@ jobs:
       - name: Клонируем репозиторий
         uses: actions/checkout@v3
 
-      - name: Устанавливаем Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
-
-      - name: Устанавливаем Зависимости
-        run: |
-          pip install -r requirements.txt
+      - name: Устанавливаем Docker-Compose
+        run: sudo apt-get update && sudo apt-get install -y docker-compose
+      
+      - name: Строим образ
+        run: | 
+          docker-compose build
 
   test:
     runs-on: ubuntu-latest
     needs: build
+
     steps:
       - name: Клонируем репозиторий
         uses: actions/checkout@v3
 
-      - name: Устанавливаем Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
-
-      - name: Устанавливаем Зависимости
-        run: |
-          pip install -r requirements.txt
+      - name: Устанавливаем Docker-Compose
+        run: sudo apt-get update && sudo apt-get install -y docker-compose
+      
 
       - name: Запускаем Тесты
-        run: |
-          pytest
-
+        run: | 
+          docker-compose run --rm test
+  
   deploy:
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
+    runs-on: ubuntu-latest 
+    needs: test 
+    steps: 
       - name: Клонируем репозиторий
         uses: actions/checkout@v3
 
-      - name: Создаем папку deploy
-        run: mkdir deploy
-
-      - name: Копируем проект в deploy
+      - name: Trigger Render Deploy 
         run: |
-          cp -r app deploy/ || true
-          cp requirements.txt deploy/ || true
-          cp main.py deploy/ || true
-
-      - name: Проверяем содержимое папки
-        run: ls -R deploy
+          mkdir -p ../staging
+          cp -r . ../staging/

@@ -21,3 +21,7 @@ def ping():
 @app.get('/divide')
 def divide(a: int, b: int):
     return {"result": a / b}
+
+@app.get("/goodbye/{name}")
+def say_goodbye(name: str):
+    return {"message": f"Goodbye, {name}"}

@@ -27,3 +27,8 @@ def test_divide():
     response = client.get("/divide?a=8&b=4")
     assert response.status_code == 200
     assert response.json() == {"result": 2}
+
+def test_goodbye():
+    response = client.get("/goodbye/Maga")
+    assert response.status_code == 200
+    assert response.json() == {"message": "Goodbye, Maga"}
