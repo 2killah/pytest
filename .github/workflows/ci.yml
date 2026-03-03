@@ -45,18 +45,19 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: test
+
     steps:
       - name: Клонируем репозиторий
         uses: actions/checkout@v3
 
-      - name: Создаем папку для деплоя
-        run: |
-          mkdir -p deploy
+      - name: Создаем папку deploy
+        run: mkdir -p deploy
 
-      - name: Копируем файлы в папку deploy
+      - name: Копируем проект в deploy
         run: |
-          cp -r . deploy/
+          cp -r app deploy/ || true
+          cp requirements.txt deploy/ || true
+          cp main.py deploy/ || true
 
-      - name: Проверяем содержимое
-        run: |
-          ls deploy
+      - name: Проверяем содержимое папки
+        run: ls -R deploy
