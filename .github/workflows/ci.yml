@@ -41,3 +41,22 @@ jobs:
       - name: Запускаем Тесты
         run: |
           pytest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Клонируем репозиторий
+        uses: actions/checkout@v3
+
+      - name: Создаем папку для деплоя
+        run: |
+          mkdir -p deploy
+
+      - name: Копируем файлы в папку deploy
+        run: |
+          cp -r . deploy/
+
+      - name: Проверяем содержимое
+        run: |
+          ls deploy
