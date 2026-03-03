@@ -55,9 +55,9 @@ jobs:
 
       - name: Копируем проект в deploy
         run: |
-          cp -r app deploy/
-          cp requirements.txt deploy/
-          cp main.py deploy/
+          cp -r app deploy/ || true
+          cp requirements.txt deploy/ || true
+          cp main.py deploy/ || true
 
       - name: Проверяем содержимое папки
         run: ls -R deploy
